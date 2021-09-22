@@ -19,7 +19,7 @@ public class ConnectionUtil {
 			e.printStackTrace();
 		}
 		
-		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=p0";
+		String url = "jdbc:postgresql://localhost:5432/postgres?currentSchema=pokedex_p0";
 		String username = "postgres";
 		String password = "t4coss1212";
 		
