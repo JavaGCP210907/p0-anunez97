@@ -38,7 +38,7 @@ public class PcEntryDao implements PcEntryDaoInterface{
 			return pc;
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in displaying your pc!");
+			System.out.println("Something went wrong in displaying your pc!".toUpperCase());
 			e.printStackTrace();
 		}
 		
@@ -75,10 +75,10 @@ public class PcEntryDao implements PcEntryDaoInterface{
 				pc.add(pt);
 			}
 			
-			System.out.println("You released " + pc.get(0).getPokemonName() + " from your pc!");
+			System.out.println("You released ".toUpperCase() + pc.get(0).getPokemonName().toUpperCase() + " from your pc!".toUpperCase());
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in releasing a pokemon from your pc!");
+			System.out.println("Something went wrong in releasing a pokemon from your pc!".toUpperCase());
 			e.printStackTrace();
 		}
 		
@@ -97,7 +97,7 @@ public class PcEntryDao implements PcEntryDaoInterface{
 			ps.executeUpdate();
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in catching a pokemon!");
+			System.out.println("Something went wrong in catching a pokemon!".toUpperCase());
 			e.printStackTrace();
 		}
 		

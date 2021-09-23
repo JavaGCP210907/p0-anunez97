@@ -45,7 +45,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			return pokedex;
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in displaying your pokedex!");
+			System.out.println("SOMETHING WENT WRONG WITH DISPLAYING YOUR POKEDEX RECORDS!");
 			e.printStackTrace();
 		}
 		
@@ -63,7 +63,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			// set pagenum in prepared statement
-			ps.setInt(1, pagenum * entriesPerPage);
+			ps.setInt(1, (pagenum - 1) * entriesPerPage);
 			
 			rs = ps.executeQuery();
 			
@@ -84,7 +84,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			return pokedex;
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in displaying the pokedex page!");
+			System.out.println("SOMETHING WENT WRONG WITH DISPLAYING THE POKEDEX PAGE!");
 			e.printStackTrace();
 		}
 		return null;
@@ -118,7 +118,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			return pokedex;
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in displaying the seen pokemon!");
+			System.out.println("Something went wrong in displaying the seen pokemon!".toUpperCase());
 			e.printStackTrace();
 		}
 		
@@ -153,7 +153,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			return pokedex;
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in displaying the caught pokemon!");
+			System.out.println("SOMETHING WENT WRONG IN DISPLAYING YOUR CAUGHT POKEMON!");
 			e.printStackTrace();
 		}
 		return null;
@@ -196,7 +196,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			return pokedex;
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in displaying the pokemon by type!");
+			System.out.println("Something went wrong in displaying the pokemon by type!".toUpperCase());
 			e.printStackTrace();
 		}
 		return null;
@@ -245,7 +245,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			return pokedex;
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in displaying the pokemon by types!");
+			System.out.println("Something went wrong in displaying the pokemon by types!".toUpperCase());
 			e.printStackTrace();
 		}
 		return null;
@@ -267,7 +267,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			System.out.println("You ran away! Your pokedex was updated!");
 		}
 		catch(SQLException e) {
-			System.out.println("Something went recording a seen pokemon in your pokedex!");
+			System.out.println("Something went recording a seen pokemon in your pokedex!".toUpperCase());
 			e.printStackTrace();
 		}
 		
@@ -290,10 +290,10 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 			
 			ps.executeUpdate();
 			
-			System.out.println("You caught " + p.getName() + "! Your pokedex was updated");
+			System.out.println("You caught ".toUpperCase() + p.getName().toUpperCase() + "! Your pokedex was updated".toUpperCase());
 		}
 		catch(SQLException e) {
-			System.out.println("Something went recording a caught pokemon in your pokedex!");
+			System.out.println("Something went recording a caught pokemon in your pokedex!".toUpperCase());
 			e.printStackTrace();
 		}
 		

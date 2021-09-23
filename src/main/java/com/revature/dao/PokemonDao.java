@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.revature.models.PcEntry;
-import com.revature.models.PokedexEntry;
 import com.revature.models.Pokemon;
 import com.revature.utils.ConnectionUtil;
 
@@ -40,7 +38,7 @@ public class PokemonDao implements PokemonDaoInterface {
 			return p.get(0);
 		}
 		catch (SQLException e) {
-			System.out.println("Something went wrong in finding a wild pokemon!");
+			System.out.println("Something went wrong in finding a wild pokemon!".toUpperCase());
 			e.printStackTrace();
 		}
 		return null;
