@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.PcEntry;
+import com.revature.models.Pokemon;
 import com.revature.utils.ConnectionUtil;
 
 public class PcEntryDao implements PcEntryDaoInterface{
@@ -78,6 +79,25 @@ public class PcEntryDao implements PcEntryDaoInterface{
 		}
 		catch (SQLException e) {
 			System.out.println("Something went wrong in releasing a pokemon from your pc!");
+			e.printStackTrace();
+		}
+		
+	}
+	
+
+	@Override
+	public void addPokemon(Pokemon p) {
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "insert into pc_pokemon (pokemon_name_fk) values (?)";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, p.getName());
+			
+			ps.executeUpdate();
+		}
+		catch (SQLException e) {
+			System.out.println("Something went wrong in catching a pokemon!");
 			e.printStackTrace();
 		}
 		

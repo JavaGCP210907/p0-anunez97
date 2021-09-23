@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.PokedexEntry;
+import com.revature.models.Pokemon;
 import com.revature.utils.ConnectionUtil;
 
 public class PokedexEntryDao implements PokedexEntryDaoInterface{
@@ -163,7 +164,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 		try(Connection conn = ConnectionUtil.getConnection()) {
 			ResultSet rs = null;
 			
-			String sql = "select * from pokedex where type_1_name = ? or type_2_name = ?";
+			String sql = "select * from pokedex where type_1_name = ? or type_2_name = ? order by pokedex_id";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
@@ -206,7 +207,7 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 		try(Connection conn = ConnectionUtil.getConnection()) {
 			ResultSet rs = null;
 
-			String sql = "select * from pokedex where (type_1_name = ? or type_2_name = ?) and (type_1_name = ? or type_2_name = ?)";
+			String sql = "select * from pokedex where (type_1_name = ? or type_2_name = ?) and (type_1_name = ? or type_2_name = ?) order by pokedex_id";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
@@ -249,4 +250,54 @@ public class PokedexEntryDao implements PokedexEntryDaoInterface{
 		}
 		return null;
 	}
+
+	
+	@Override
+	public void seenPokemon(Pokemon p) {
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "update pokedex set pokemon_name = (select pokemon.\"name\" from pokemon where pokemon.pokedex_id_fk = pokedex.pokedex_id),"
+			+ " seen = seen + 1 where pokedex_id = ?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, p.getPokedex_id());
+			
+			ps.executeUpdate();
+			
+			System.out.println("You ran away! Your pokedex was updated!");
+		}
+		catch(SQLException e) {
+			System.out.println("Something went recording a seen pokemon in your pokedex!");
+			e.printStackTrace();
+		}
+		
+	}
+		
+
+	@Override
+	public void caughtPokemon(Pokemon p) {	
+		try(Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "update pokedex set pokemon_name = (select pokemon.\"name\" from pokemon where pokemon.pokedex_id_fk = pokedex.pokedex_id),";
+			sql = sql + " type_1_name = (select pokemon_types.\"name\" from pokemon_types where ";
+			sql = sql + "(select pokemon.type_1_id_fk from pokemon where pokemon.pokedex_id_fk = pokedex_id) = pokemon_types.type_id),";
+			sql = sql + "type_2_name = (select pokemon_types.\"name\" from pokemon_types where ";
+			sql = sql + "(select pokemon.type_2_id_fk from pokemon where pokemon.pokedex_id_fk = pokedex_id) = pokemon_types.type_id), ";
+			sql = sql + "seen = seen + 1, caught = caught + 1 where pokedex_id = ?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, p.getPokedex_id());
+			
+			ps.executeUpdate();
+			
+			System.out.println("You caught " + p.getName() + "! Your pokedex was updated");
+		}
+		catch(SQLException e) {
+			System.out.println("Something went recording a caught pokemon in your pokedex!");
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 }
